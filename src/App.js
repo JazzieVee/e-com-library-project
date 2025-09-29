@@ -12,8 +12,24 @@ function App() {
 const [cart, setCart] = useState([]);
 
 function addToCart(book) {
-  setCart([...cart, book])
+  setCart([...cart, {...book, quantity: 1}]);
 }
+
+function changeQuantity(book, quantity) {
+   setCart(
+    cart.map(item => {
+    return item.id === book.id
+    ? {
+       ...item,
+        quantity: +quantity,
+    }
+    : item;
+    
+   })
+  );n
+}
+
+
 
 useEffect(() => {
 console.log(cart)
@@ -25,8 +41,8 @@ console.log(cart)
     <Nav />
     <Route path="/" exact component={Home} />
     <Route path="/books" exact render={() => <Books books={books} />} />
-    <Route path="/books/:id" render={() => <BookInfo books={books} addToCart={addToCart} /> } />
-    <Route path="/cart" render={() => <Cart books={books} />} /> 
+    <Route path="/books/:id" render={() => <BookInfo books={books} addToCart={addToCart} cart={cart} /> } />
+    <Route path="/cart" render={() => <Cart books={books} cart={cart} changeQuantity={changeQuantity} />} /> 
     <Footer />
     </div>
      </Router>

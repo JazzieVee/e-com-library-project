@@ -23,7 +23,7 @@ const Books = ({ books: initialBooks }) => {
             .sort(
               (a, b) => 
                 (b.salePrice || b.originalPrice) - 
-                (a.salePrice || a. originalPrice)
+                (a.salePrice || a.originalPrice)
             )
           );
         }

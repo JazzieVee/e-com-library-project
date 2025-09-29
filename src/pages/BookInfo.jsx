@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useParams } from 'react-router-dom/cjs/react-router-dom';
 import Rating from '../components/ui/Rating';
 import Price from '../components/ui/Price';
@@ -7,20 +7,18 @@ import Book from '../components/ui/Book';
 
 const BookInfo = ({ books, addToCart, cart }) => {
     const { id } = useParams();
-    const book = books.find(book => +book.id == +id);
-    const [added, setAdded] = useState(false);
+    const book = books.find(book => +book.id === +id);
 
  function addBookToCart(book) {
-    setAdded(true);
     addToCart(book);
  }
 
- function bookExistsInCart() {
-    
+ function bookExistsOnCart() {
+    return cart.find(book => book.id === +id);
  }
 
     return (
-        <><div id='books__body'>
+        <div id='books__body'>
             <main id="books__main">
                 <div className="books__container">
                     <div className="row">
@@ -39,17 +37,21 @@ const BookInfo = ({ books, addToCart, cart }) => {
                             <div className='book__selected--description'>
                                 <h2 className="book__selected--title">{book.title}</h2>
                                 <Rating rating={book.rating} />
-                                <Price originalPrice={book.originalPrice} salePrice={book.salePrice} />
+                                <div className='book__selected--price'>
+                                <Price 
+                                originalPrice={book.originalPrice} 
+                                salePrice={book.salePrice} 
+                              />
                             </div>
                             <div className="book__summary">
-                                <h3 className="book__summary--title">
-                                    Summary
-                                </h3>
+                                <h3 className="book__summary--title">Summary</h3>
                                 <p className="book__summary--para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vel ducimus quo tempora, sequi labore deserunt quibusdam nam itaque eius obcaecati voluptas dicta aut, consequuntur tenetur expedita veritatis deleniti amet?</p>
                                 <p className="book__summary--para">Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia vel ducimus quo tempora, sequi labore deserunt quibusdam nam itaque eius obcaecati voluptas dicta aut, consequuntur tenetur expedita veritatis deleniti amet?</p>
                             </div>
-                            {added ? (
+                            {bookExistsOnCart() ? (
+                                <Link to="/cart">
                                 <button className='btn'>Checkout</button>
+                                </Link>
                             ) : (
                                 <button className="btn" onClick={() => addBookToCart(book)}>
                                     Add to Cart
@@ -76,7 +78,7 @@ const BookInfo = ({ books, addToCart, cart }) => {
                             ))}
                     </div>
                 </div>
-            </div></>
+            </div>
             </main>
         </div>
     );
