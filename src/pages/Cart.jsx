@@ -27,8 +27,7 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                             <span className="cart__total">Price</span>
                         </div>
                         <div className="cart__body">
-                            {
-                                cart.map(book => {
+                            {cart.map(book => {
                                     return (
                             <div className="cart__item">
                                 <div className="cart__book">
