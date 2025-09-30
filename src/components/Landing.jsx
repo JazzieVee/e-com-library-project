@@ -1,6 +1,7 @@
 import React from 'react' ;
 import UndrawBooks from '../assets/Undraw_Books.svg';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
+import Featured from './Featured';
 
 const Landing = () => {
     return (
@@ -10,7 +11,7 @@ const Landing = () => {
                     <div className="header__description">
                         <h1>America's most awarded online library platform</h1>
                         <h2>Find your dream book with <span className='purple'>Library</span></h2>
-                        <Link to="#featured">
+                        <Link to="/books" >
                             <button className='btn'>
                                 Browse books
                             </button>
